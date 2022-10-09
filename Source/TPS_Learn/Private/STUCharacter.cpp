@@ -76,6 +76,21 @@ float ASTUCharacter::GetMovementDirection() const
 	return CrossProduct.IsZero()?Degree:Degree * FMath::Sign(CrossProduct.Z);
 }
 
+void ASTUCharacter::OnGroundLanded(const FHitResult& Hit)
+{
+	const auto FallVelocityZ = -GetCharacterMovement()->Velocity.Z;
+	UE_LOG(LogTemp, Error, TEXT("On Landed:%f"), FallVelocityZ);
+
+	if (FallVelocityZ < LandDamageVelocity.X)
+	{
+		return;
+	}
+
+	const auto FinalDamage = FMath::GetMappedRangeValueClamped(LandDamageVelocity, LandDamage, FallVelocityZ);
+	UE_LOG(LogTemp, Error, TEXT("FinalDamage:%f"), FinalDamage);
+	TakeDamage(FinalDamage, FDamageEvent{}, nullptr, nullptr);
+}
+
 void ASTUCharacter::OnDeath()
 {
 	PlayAnimMontage(DefaultAnimMontage);
@@ -103,6 +118,7 @@ void ASTUCharacter::BeginPlay()
 	HealthComp->OnDeath.AddUObject(this, &ASTUCharacter::OnDeath);
 	HealthComp->OnHealthChanged.AddUObject(this, &ASTUCharacter::OnHealthChanged);
 	
+	LandedDelegate.AddDynamic(this, &ASTUCharacter::OnGroundLanded);
  }
 
 void ASTUCharacter::OnHealthChanged(float Health)

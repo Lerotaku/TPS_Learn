@@ -29,10 +29,19 @@ public:
 
 	void StopSprint();
 
+	void OnDeath();
+
+	void OnHealthChanged(float Health);
+
 	UFUNCTION(BlueprintCallable,Category = "Movement")
 	float GetMovementDirection() const;
 
-	void OnDeath();
+	UFUNCTION()
+	void OnGroundLanded(const FHitResult& Hit);
+
+
+
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -59,8 +68,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly,Category = "Animations")
 	UAnimMontage* DefaultAnimMontage;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	FVector2D LandDamageVelocity = FVector2D(900.0f, 1200.0f);
 
-	void OnHealthChanged(float Health);
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	FVector2D LandDamage = FVector2D(10.0f, 100.0f);
+
 
 public:	
 	// Called every frame
