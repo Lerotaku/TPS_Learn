@@ -20,9 +20,8 @@ void USTUHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Health = MaxHealth;
+	SetHealth(MaxHealth);
 
-	OnHealthChanged.Broadcast(Health);
 
 	AActor* ComponentOwner = GetOwner();
 	if (ComponentOwner)
@@ -35,17 +34,40 @@ void USTUHealthComponent::BeginPlay()
 
 void USTUHealthComponent::OnTakeAnyDamageHandle(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (Damage <= 0 || bDead())
+	if (Damage <= 0 || bDead() || !GetWorld())//  ! GetWorld
 	{
 		return;
 	}
 
-	Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
+	SetHealth(Health - Damage);
 	OnHealthChanged.Broadcast(Health);
+
+	GetWorld()->GetTimerManager().ClearTimer(HealTimeHandle);
 
 	if (bDead())
 	{
 		OnDeath.Broadcast();
 	}
+	else if (bAutoHeal && GetWorld())
+	{
+		GetWorld()->GetTimerManager().SetTimer(HealTimeHandle, this, &USTUHealthComponent::HealUpdate, HealUpdateTime, true, HealDelay);
+	}
 
+}
+
+void USTUHealthComponent::HealUpdate()
+{
+	SetHealth(Health + HealModifier);
+
+
+	if (FMath::IsNearlyEqual(Health,MaxHealth) && GetWorld())
+	{
+		GetWorld()->GetTimerManager().ClearTimer(HealTimeHandle);
+	}
+}
+
+void USTUHealthComponent::SetHealth(float NewHealth)
+{
+	Health = FMath::Clamp(NewHealth, 0.0f, MaxHealth);
+	OnHealthChanged.Broadcast(Health);
 }

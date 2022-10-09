@@ -118,10 +118,6 @@ void ASTUCharacter::OnHealthChanged(float Health)
 void ASTUCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	const auto Health = HealthComp->GetHealth();
-
-
-
 }
 
 // Called to bind functionality to input

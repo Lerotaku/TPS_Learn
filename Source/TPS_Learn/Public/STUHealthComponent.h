@@ -29,11 +29,11 @@ public:
 
 	FOnHealthChanged OnHealthChanged;
 	
-	//UFUNCTION()
-	//void HealUpdate();
+	UFUNCTION()
+	void HealUpdate();
 
-	//UFUNCTION()
-	//void SetHealth(float NewHealth);
+	UFUNCTION()
+	void SetHealth(float NewHealth);
 
 protected:
 	virtual void BeginPlay() override;
@@ -43,21 +43,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,meta = (ClampMin = "0",ClampMax = "1000"),Category = "Health")
 	float MaxHealth = 100.0f;
 
-//	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
-//	bool bAutoHeal = 1;
-//
-//	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
-//	float HealUpdateTime = 1.0f;
-//
-//	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
-//	float HealDelay = 3.0f;
-//
-//	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
-//	float HealModifier = 5.0f;
-//
-//	FTimerHandle HealTimeHandle;
-//
-//private:
-//
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
+	bool bAutoHeal = 1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
+	float HealUpdateTime = 1.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
+	float HealDelay = 3.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Heal")
+	float HealModifier = 5.0f;
+
+	FTimerHandle HealTimeHandle;
 
 };
