@@ -88,6 +88,9 @@ void ASTUCharacter::OnDeath()
 	}
 }
 
+
+
+
 // Called when the game starts or when spawned
 void ASTUCharacter::BeginPlay()
 {
@@ -99,19 +102,25 @@ void ASTUCharacter::BeginPlay()
 	OnHealthChanged(HealthComp->GetHealth());
 	HealthComp->OnDeath.AddUObject(this, &ASTUCharacter::OnDeath);
 	HealthComp->OnHealthChanged.AddUObject(this, &ASTUCharacter::OnHealthChanged);
-
+	
  }
 
 void ASTUCharacter::OnHealthChanged(float Health)
 {
-	HealthTextComp->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
+		HealthTextComp->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
 
 }
+
+
+
 
 // Called every frame
 void ASTUCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	const auto Health = HealthComp->GetHealth();
+
+
 
 }
 
@@ -134,5 +143,8 @@ void ASTUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 	
 }
+
+
+
 
 
