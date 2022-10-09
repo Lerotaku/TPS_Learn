@@ -8,6 +8,7 @@
 #include"STUHealthComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/Controller.h"
+#include"STUBaseWeaponActor.h"
 // Sets default values
 ASTUCharacter::ASTUCharacter()
 {
@@ -32,6 +33,7 @@ ASTUCharacter::ASTUCharacter()
 
 	HealthTextComp = CreateDefaultSubobject<UTextRenderComponent>("HealthTextComp");
 	HealthTextComp->SetupAttachment(RootComponent);
+
 }
 
 void ASTUCharacter::MoveForward(float Value)
@@ -118,13 +120,29 @@ void ASTUCharacter::BeginPlay()
 	HealthComp->OnDeath.AddUObject(this, &ASTUCharacter::OnDeath);
 	HealthComp->OnHealthChanged.AddUObject(this, &ASTUCharacter::OnHealthChanged);
 	
+	SpawnWeapon();
+
+
 	LandedDelegate.AddDynamic(this, &ASTUCharacter::OnGroundLanded);
+
  }
 
 void ASTUCharacter::OnHealthChanged(float Health)
 {
 		HealthTextComp->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Health)));
 
+}
+
+void ASTUCharacter::SpawnWeapon()
+{
+	if (!GetWorld()) return;
+	const auto Weapon = GetWorld()->SpawnActor<ASTUBaseWeaponActor>(WeaponClass);
+
+	if (Weapon)
+	{
+		FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, 0);
+		Weapon->AttachToComponent(GetMesh(), AttachmentRules, "Weapon");
+	}
 }
 
 

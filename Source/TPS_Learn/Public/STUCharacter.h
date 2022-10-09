@@ -11,6 +11,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class USTUHealthComponent;
 class UTextRenderComponent;
+class ASTUBaseWeaponActor;
 
 UCLASS()
 class TPS_LEARN_API ASTUCharacter : public ACharacter
@@ -33,6 +34,8 @@ public:
 
 	void OnHealthChanged(float Health);
 
+	void SpawnWeapon();
+
 	UFUNCTION(BlueprintCallable,Category = "Movement")
 	float GetMovementDirection() const;
 
@@ -44,8 +47,6 @@ public:
 
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
 	USpringArmComponent* SpringArmComp;
@@ -68,12 +69,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly,Category = "Animations")
 	UAnimMontage* DefaultAnimMontage;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
+	TSubclassOf<ASTUBaseWeaponActor> WeaponClass;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	FVector2D LandDamageVelocity = FVector2D(900.0f, 1200.0f);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	FVector2D LandDamage = FVector2D(10.0f, 100.0f);
-
 
 public:	
 	// Called every frame
@@ -82,6 +85,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 };
