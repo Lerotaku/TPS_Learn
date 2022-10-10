@@ -33,10 +33,13 @@ public:
 	virtual void BeginPlay() override;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	virtual void Fire();
 
 	void MakeShot();
 
+=======
+>>>>>>> parent of 91241d6 (射击功能)
 =======
 >>>>>>> parent of 91241d6 (射击功能)
 };
