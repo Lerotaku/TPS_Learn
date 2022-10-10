@@ -7,7 +7,7 @@
 ASTUBaseWeaponActor::ASTUBaseWeaponActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	WeaponComp = CreateDefaultSubobject<USkeletalMeshComponent>("WeaponComp");
 	SetRootComponent(WeaponComp); 
@@ -21,11 +21,8 @@ void ASTUBaseWeaponActor::BeginPlay()
 	
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 void ASTUBaseWeaponActor::Fire()
 {
-	UE_LOG(LogBaseWeapon, Display, TEXT("Fireeeeee!"));
 
 	MakeShot();
 
@@ -42,11 +39,3 @@ void ASTUBaseWeaponActor::MakeShot()
 	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
 
 }
-=======
-
-
->>>>>>> parent of 91241d6 (射击功能)
-=======
-
-
->>>>>>> parent of 91241d6 (射击功能)

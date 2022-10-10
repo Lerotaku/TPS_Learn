@@ -10,36 +10,31 @@ UCLASS()
 class TPS_LEARN_API ASTUBaseWeaponActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 
 
 protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USkeletalMeshComponent* WeaponComp;
-	
+		USkeletalMeshComponent* WeaponComp;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	FName MuzzleSocketName = "MuzzleSocket";
+		FName MuzzleSocketName = "MuzzleSocket";
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float TraceMaxDistance = 1500.0f;
+		float TraceMaxDistance = 1500.0f;
 
-public:	
+public:
 	// Sets default values for this actor's properties
 	ASTUBaseWeaponActor();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	virtual void Fire();
 
 	void MakeShot();
 
-=======
->>>>>>> parent of 91241d6 (射击功能)
-=======
->>>>>>> parent of 91241d6 (射击功能)
 };

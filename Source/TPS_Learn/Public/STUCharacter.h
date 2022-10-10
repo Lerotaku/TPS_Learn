@@ -12,6 +12,7 @@ class USpringArmComponent;
 class USTUHealthComponent;
 class UTextRenderComponent;
 class ASTUBaseWeaponActor;
+class USTUWeaponComponent;
 
 UCLASS()
 class TPS_LEARN_API ASTUCharacter : public ACharacter
@@ -34,7 +35,6 @@ public:
 
 	void OnHealthChanged(float Health);
 
-	void SpawnWeapon();
 
 	UFUNCTION(BlueprintCallable,Category = "Movement")
 	float GetMovementDirection() const;
@@ -78,6 +78,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	FVector2D LandDamage = FVector2D(10.0f, 100.0f);
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	USTUWeaponComponent* WeaponComp;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -89,3 +92,4 @@ public:
 	virtual void BeginPlay() override;
 
 };
+ 
