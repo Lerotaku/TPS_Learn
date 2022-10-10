@@ -38,9 +38,9 @@ void USTUWeaponComponent::SpawnWeapon()
 
 	
 
-	FAttachmentTransformRules AttachMentRules(EAttachmentRule::SnapToTarget, 0);
+	FAttachmentTransformRules AttachMentRules(EAttachmentRule::SnapToTarget, false);
 	CurrentWeapon->AttachToComponent(Character->GetMesh(), AttachMentRules, WeaponSocketName);
-	
+	UE_LOG(LogTemp, Error, TEXT("aaa"));
 }
 
 void USTUWeaponComponent::Fire()

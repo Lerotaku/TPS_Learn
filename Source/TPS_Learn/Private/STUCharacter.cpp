@@ -37,8 +37,6 @@ ASTUCharacter::ASTUCharacter()
 
 	WeaponComp = CreateDefaultSubobject<USTUWeaponComponent>("WeaponComp");
 
-
-
 }
 
 void ASTUCharacter::MoveForward(float Value)
@@ -150,7 +148,7 @@ void ASTUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	check(PlayerInputComponent);
-	check(WeaponComp);
+	//check(WeaponComp);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ASTUCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASTUCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("LookUp", this, &ASTUCharacter::AddControllerPitchInput);

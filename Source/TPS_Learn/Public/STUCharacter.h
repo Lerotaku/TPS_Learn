@@ -78,7 +78,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	FVector2D LandDamage = FVector2D(10.0f, 100.0f);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	USTUWeaponComponent* WeaponComp;
 
 public:	
