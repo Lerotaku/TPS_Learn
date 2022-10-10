@@ -20,10 +20,26 @@ ASTUBaseWeaponActor::ASTUBaseWeaponActor()
 void ASTUBaseWeaponActor::BeginPlay()
 {
 	Super::BeginPlay();
+	check(WeaponComp);
 	
 }
 
 void ASTUBaseWeaponActor::Fire()
 {
 	UE_LOG(LogBaseWeapon, Display, TEXT("Fireeeeee!"));
+
+	MakeShot();
+
+}
+
+void ASTUBaseWeaponActor::MakeShot()
+{
+	if (!GetWorld()) return;
+	const FTransform SocketTransform = WeaponComp->GetSocketTransform(MuzzleSocketName);
+
+	const FVector TraceStart = SocketTransform.GetLocation();
+	const FVector ShootDirection = SocketTransform.GetRotation().GetForwardVector();
+	const FVector TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
+	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
+
 }

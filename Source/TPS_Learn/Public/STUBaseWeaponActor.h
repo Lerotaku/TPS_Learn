@@ -16,9 +16,14 @@ public:
 
 protected:
 
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	USkeletalMeshComponent* WeaponComp;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FName MuzzleSocketName = "MuzzleSocket";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float TraceMaxDistance = 1500.0f;
 
 public:	
 	// Sets default values for this actor's properties
@@ -28,5 +33,7 @@ public:
 	virtual void BeginPlay() override;
 
 	virtual void Fire();
+
+	void MakeShot();
 
 };
