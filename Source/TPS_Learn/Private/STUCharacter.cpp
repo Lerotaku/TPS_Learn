@@ -18,6 +18,8 @@ ASTUCharacter::ASTUCharacter()
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("SpringArmComp");
 	SpringArmComp->SetupAttachment(RootComponent);
 	SpringArmComp->bUsePawnControlRotation = 1;
+	SpringArmComp->TargetArmLength = 275.0f;
+	SpringArmComp->SocketOffset = FVector(0, 75, 50);
 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(SpringArmComp);
@@ -33,6 +35,7 @@ ASTUCharacter::ASTUCharacter()
 
 	HealthTextComp = CreateDefaultSubobject<UTextRenderComponent>("HealthTextComp");
 	HealthTextComp->SetupAttachment(RootComponent);
+	HealthTextComp->SetOwnerNoSee(1);
 
 }
 
