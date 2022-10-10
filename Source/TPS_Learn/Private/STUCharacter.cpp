@@ -9,6 +9,7 @@
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/Controller.h"
 #include"STUBaseWeaponActor.h"
+#include"STUWeaponComponent.h"
 // Sets default values
 ASTUCharacter::ASTUCharacter()
 {
@@ -36,6 +37,8 @@ ASTUCharacter::ASTUCharacter()
 	HealthTextComp = CreateDefaultSubobject<UTextRenderComponent>("HealthTextComp");
 	HealthTextComp->SetupAttachment(RootComponent);
 	HealthTextComp->SetOwnerNoSee(1);
+
+	WeaponComp = CreateDefaultSubobject<USTUWeaponComponent>("WeaponComp");
 
 }
 
@@ -123,9 +126,6 @@ void ASTUCharacter::BeginPlay()
 	HealthComp->OnDeath.AddUObject(this, &ASTUCharacter::OnDeath);
 	HealthComp->OnHealthChanged.AddUObject(this, &ASTUCharacter::OnHealthChanged);
 	
-	SpawnWeapon();
-
-
 	LandedDelegate.AddDynamic(this, &ASTUCharacter::OnGroundLanded);
 
  }
@@ -136,17 +136,7 @@ void ASTUCharacter::OnHealthChanged(float Health)
 
 }
 
-void ASTUCharacter::SpawnWeapon()
-{
-	if (!GetWorld()) return;
-	const auto Weapon = GetWorld()->SpawnActor<ASTUBaseWeaponActor>(WeaponClass);
 
-	if (Weapon)
-	{
-		FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, 0);
-		Weapon->AttachToComponent(GetMesh(), AttachmentRules, "Weapon");
-	}
-}
 
 
 
@@ -161,19 +151,21 @@ void ASTUCharacter::Tick(float DeltaTime)
 void ASTUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	if (PlayerInputComponent)
-	{
-		PlayerInputComponent->BindAxis("MoveForward", this, &ASTUCharacter::MoveForward);
-		PlayerInputComponent->BindAxis("MoveRight", this, &ASTUCharacter::MoveRight);
-		PlayerInputComponent->BindAxis("LookUp", this, &ASTUCharacter::AddControllerPitchInput);
-		PlayerInputComponent->BindAxis("TurnRight", this, &ASTUCharacter::AddControllerYawInput);
+	check(PlayerInputComponent);
+	check(WeaponComp);
+	
+	PlayerInputComponent->BindAxis("MoveForward", this, &ASTUCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ASTUCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("LookUp", this, &ASTUCharacter::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis("TurnRight", this, &ASTUCharacter::AddControllerYawInput);
 
-		PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASTUCharacter::Jump);
-		PlayerInputComponent->BindAction("Jump", IE_Released, this, &ASTUCharacter::StopJumping);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASTUCharacter::Jump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ASTUCharacter::StopJumping);
 
-		PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ASTUCharacter::Sprint);
-		PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ASTUCharacter::StopSprint);
-	}
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ASTUCharacter::Sprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ASTUCharacter::StopSprint);
+	PlayerInputComponent->BindAction("Attack_L", IE_Released, WeaponComp, &USTUWeaponComponent::Fire);
+	
 	
 }
 

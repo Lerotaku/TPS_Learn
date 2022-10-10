@@ -3,6 +3,9 @@
 
 #include "STUBaseWeaponActor.h"
 
+
+DEFINE_LOG_CATEGORY_STATIC(LogBaseWeapon, All, All);
+
 // Sets default values
 ASTUBaseWeaponActor::ASTUBaseWeaponActor()
 {
@@ -20,5 +23,7 @@ void ASTUBaseWeaponActor::BeginPlay()
 	
 }
 
-
-
+void ASTUBaseWeaponActor::Fire()
+{
+	UE_LOG(LogBaseWeapon, Display, TEXT("Fireeeeee!"));
+}
