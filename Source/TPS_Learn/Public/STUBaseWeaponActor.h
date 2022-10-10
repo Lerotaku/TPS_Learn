@@ -32,8 +32,11 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+<<<<<<< HEAD
 	virtual void Fire();
 
 	void MakeShot();
 
+=======
+>>>>>>> parent of 91241d6 (射击功能)
 };

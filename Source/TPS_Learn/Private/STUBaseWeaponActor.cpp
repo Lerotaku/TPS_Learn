@@ -3,9 +3,6 @@
 
 #include "STUBaseWeaponActor.h"
 
-
-DEFINE_LOG_CATEGORY_STATIC(LogBaseWeapon, All, All);
-
 // Sets default values
 ASTUBaseWeaponActor::ASTUBaseWeaponActor()
 {
@@ -24,6 +21,7 @@ void ASTUBaseWeaponActor::BeginPlay()
 	
 }
 
+<<<<<<< HEAD
 void ASTUBaseWeaponActor::Fire()
 {
 	UE_LOG(LogBaseWeapon, Display, TEXT("Fireeeeee!"));
@@ -43,3 +41,7 @@ void ASTUBaseWeaponActor::MakeShot()
 	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
 
 }
+=======
+
+
+>>>>>>> parent of 91241d6 (射击功能)
