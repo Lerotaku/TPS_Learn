@@ -159,7 +159,7 @@ void ASTUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ASTUCharacter::Sprint);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ASTUCharacter::StopSprint);
-	PlayerInputComponent->BindAction("Attack_L", IE_Released, WeaponComp, &USTUWeaponComponent::Fire);
+	PlayerInputComponent->BindAction("Attack_L", IE_Pressed, WeaponComp, &USTUWeaponComponent::Fire);
 	
 	
 }
