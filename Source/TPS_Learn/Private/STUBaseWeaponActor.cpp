@@ -2,6 +2,8 @@
 
 
 #include "STUBaseWeaponActor.h"
+#include"Engine/World.h"
+#include"DrawDebugHelpers.h"
 
 
 DEFINE_LOG_CATEGORY_STATIC(LogBaseWeapon, All, All);
@@ -20,10 +22,18 @@ ASTUBaseWeaponActor::ASTUBaseWeaponActor()
 void ASTUBaseWeaponActor::BeginPlay()
 {
 	Super::BeginPlay();
+	check(WeaponComp);
 	
 }
 
 void ASTUBaseWeaponActor::Fire()
 {
 	UE_LOG(LogBaseWeapon, Display, TEXT("Fireeeeee!"));
+	MakeShot();
+}
+
+void ASTUBaseWeaponActor::MakeShot()
+{
+	if (!GetWorld()) return;
+
 }

@@ -29,4 +29,7 @@ public:
 
 	virtual void Fire();
 
+	void MakeShot();
+
+
 };
