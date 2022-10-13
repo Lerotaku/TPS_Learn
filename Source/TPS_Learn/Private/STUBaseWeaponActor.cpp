@@ -2,6 +2,8 @@
 
 
 #include "STUBaseWeaponActor.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Controller.h"
 
 // Sets default values
 ASTUBaseWeaponActor::ASTUBaseWeaponActor()
@@ -30,12 +32,47 @@ void ASTUBaseWeaponActor::Fire()
 
 void ASTUBaseWeaponActor::MakeShot()
 {
+	const auto Player = Cast<ACharacter>(GetOwner());
+	if (!Player) return;
+
+	const auto Controller = Player->GetController<APlayerController>();
+	if (!Controller) return;
+
+	FVector ViewLocation;
+	FRotator ViewRotation;
+	Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
+
 	if (!GetWorld()) return;
 	const FTransform SocketTransform = WeaponComp->GetSocketTransform(MuzzleSocketName);
 
-	const FVector TraceStart = SocketTransform.GetLocation();
-	const FVector ShootDirection = SocketTransform.GetRotation().GetForwardVector();
+	const FVector TraceStart = ViewLocation; /*SocketTransform.GetLocation();*/
+	const FVector ShootDirection = ViewRotation.Vector();/*SocketTransform.GetRotation().GetForwardVector();*/
 	const FVector TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
+
+
+	FHitResult HitResult;
+	GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility);
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(GetOwner());
+
+	if (HitResult.bBlockingHit)
+	{
+
+		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
+		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 24, FColor::Red, 0, 5.0f);
+
+	}
+	else
+	{
+		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
+	}
 
 }
+
+//APlayerController* ASTUBaseWeaponActor::GetPlayerController() const {
+//
+
+
+	//const auto Controller = Player->
+

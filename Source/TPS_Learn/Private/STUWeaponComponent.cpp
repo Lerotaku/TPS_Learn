@@ -36,11 +36,11 @@ void USTUWeaponComponent::SpawnWeapon()
 	CurrentWeapon = GetWorld()->SpawnActor<ASTUBaseWeaponActor>(WeaponClass);
 	if (!CurrentWeapon) return;
 
-	
-
 	FAttachmentTransformRules AttachMentRules(EAttachmentRule::SnapToTarget, false);
 	CurrentWeapon->AttachToComponent(Character->GetMesh(), AttachMentRules, WeaponSocketName);
-	UE_LOG(LogTemp, Error, TEXT("aaa"));
+	CurrentWeapon->SetOwner(Character);
+
+	
 }
 
 void USTUWeaponComponent::Fire()

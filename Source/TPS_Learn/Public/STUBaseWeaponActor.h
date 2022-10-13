@@ -37,4 +37,5 @@ public:
 
 	void MakeShot();
 
+	//APlayerController* ASTUBaseWeaponActor::GetPlayerController() const;
 };
