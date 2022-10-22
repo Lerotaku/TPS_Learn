@@ -37,5 +37,13 @@ public:
 
 	void MakeShot();
 
-	//APlayerController* ASTUBaseWeaponActor::GetPlayerController() const;
+	APlayerController* GetPlayerController() const;
+
+	bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
+	
+	FVector GetMuzzleWorldLocation() const;
+
+	bool GetTraceDate(FVector& TraceStart, FVector& TraceEnd) const;
+
+	void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
 };
