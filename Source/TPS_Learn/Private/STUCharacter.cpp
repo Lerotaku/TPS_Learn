@@ -10,6 +10,7 @@
 #include "GameFramework/Controller.h"
 #include"STUBaseWeaponActor.h"
 #include"STUWeaponComponent.h"
+#include"Components/CapsuleComponent.h"
 // Sets default values
 ASTUCharacter::ASTUCharacter()
 {
@@ -106,6 +107,9 @@ void ASTUCharacter::OnDeath()
 	{
 		Controller->ChangeState(NAME_Spectating);
 	}
+
+	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);
+
 }
 
 

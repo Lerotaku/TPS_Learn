@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float TraceMaxDistance = 1500.0f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		float DamageAmount = 10.0f;
+
 public:
 	// Sets default values for this actor's properties
 	ASTUBaseWeaponActor();
@@ -46,4 +49,6 @@ public:
 	bool GetTraceDate(FVector& TraceStart, FVector& TraceEnd) const;
 
 	void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
+
+	void MakeDamage(const FHitResult& HitResult);
 };
