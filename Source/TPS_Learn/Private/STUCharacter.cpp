@@ -109,7 +109,7 @@ void ASTUCharacter::OnDeath()
 	}
 
 	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);
-
+	WeaponComp->StopFire();
 }
 
 
@@ -165,6 +165,7 @@ void ASTUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ASTUCharacter::StopSprint);
 	PlayerInputComponent->BindAction("Attack_L", IE_Pressed, WeaponComp, &USTUWeaponComponent::StartFire);
 	PlayerInputComponent->BindAction("Attack_L", IE_Released, WeaponComp, &USTUWeaponComponent::StopFire);
+	PlayerInputComponent->BindAction("NextWeapon", IE_Released, WeaponComp, &USTUWeaponComponent::NextWeapon);
 	
 	
 }

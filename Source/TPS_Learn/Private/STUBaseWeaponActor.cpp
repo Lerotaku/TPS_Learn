@@ -86,10 +86,3 @@ void ASTUBaseWeaponActor::MakeHit(FHitResult& HitResult, const FVector& TraceSta
 }
 
 
-void ASTUBaseWeaponActor::MakeDamage(const FHitResult& HitResult)
-{
-	const auto DamageActor = HitResult.GetActor();
-	if (!DamageActor) return;
-
-	DamageActor->TakeDamage(DamageAmount, FDamageEvent(), GetPlayerController(), this);
-}
