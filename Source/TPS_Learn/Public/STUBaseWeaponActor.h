@@ -28,6 +28,17 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		float DamageAmount = 10.0f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		FTimerHandle ShotTimerHandle;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		float TimeBetweenShot = 0.1f;	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		float BulletSpread = 1.5f;
+
+
+
 public:
 	// Sets default values for this actor's properties
 	ASTUBaseWeaponActor();
@@ -36,7 +47,9 @@ public:
 	virtual void BeginPlay() override;
 
 
-	virtual void Fire();
+	virtual void StartFire();
+
+	virtual void StopFire();
 
 	void MakeShot();
 
