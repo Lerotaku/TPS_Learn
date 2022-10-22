@@ -18,17 +18,12 @@ void ASTURifleWeapon::MakeShot()
 {
 	if (!GetWorld()) return;
 
-
-
 	FVector TraceStart, TraceEnd;
 
 	if (!GetTraceDate(TraceStart, TraceEnd)) return;
 
-
-
 	FHitResult HitResult;
 	MakeHit(HitResult, TraceStart, TraceEnd);
-
 
 	if (HitResult.bBlockingHit)
 	{
